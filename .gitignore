@@ -1,0 +1,154 @@
+########################################
+# OS-SPECIFIC FILES
+########################################
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+[Dd]esktop.ini
+
+# Linux
+.Trash-*
+
+########################################
+# LOG FILES
+########################################
+*.log
+*.log.*
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+logs/
+log/
+
+########################################
+# PACKAGE MANAGERS
+########################################
+node_modules/
+.bower-cache/
+.bower-registry/
+.bower-components/
+jspm_packages/
+target/
+dist/
+out/
+
+########################################
+# ENVIRONMENT / CONFIG FILES
+########################################
+.env
+.env.*
+*.local
+*.secret
+
+########################################
+# PYTHON
+########################################
+__pycache__/
+*.py[cod]
+*.so
+*.egg
+*.egg-info
+.eggs
+*.pyd
+*.pyo
+
+########################################
+# JAVA / GRADLE / MAVEN
+########################################
+*.class
+*.war
+*.ear
+*.jar
+*.java~
+*.jmx
+*.jtl
+target/
+build/
+.gradle/
+.idea/libraries/
+# Maven and Gradle wrapper files
+mvnw
+mvnw.cmd
+gradlew
+gradlew.bat
+
+########################################
+# RUST / CARGO
+########################################
+target/
+**/*.rs.bk
+
+########################################
+# DOTNET / C#
+########################################
+*.user
+*.suo
+*.userprefs
+*.csproj.user
+*.dbmdl
+*.jfm
+*.pdb
+bin/
+obj/
+*.app/
+**/bin/**
+**/obj/**
+
+########################################
+# EDITORS AND IDEs
+########################################
+
+# Visual Studio Code
+.vscode/
+.history/
+*.code-workspace
+
+# JetBrains (IntelliJ, PyCharm, WebStorm, etc.)
+.idea/
+*.iml
+out/
+
+# Sublime Text
+*.sublime-workspace
+*.sublime-project
+
+# Vim
+*.swp
+*.swo
+*.swn
+*.swm
+.*.swp
+Session.vim
+.netrwhist
+
+# Emacs
+*~
+\#*\#
+.\#*
+
+########################################
+# OTHER COMMON IGNORABLES
+########################################
+*.temp
+*.tmp
+*.bak
+*.old
+*.backup
+*.cache
+*.snap
+node_modules/
+coverage/
+coverage-final.json
+*.coveragerc
+npm-debug.log
+yarn-error.log
+yarn-debug.log
+package-lock.json
+.pnpm-lock.yaml
+yarn.lock
