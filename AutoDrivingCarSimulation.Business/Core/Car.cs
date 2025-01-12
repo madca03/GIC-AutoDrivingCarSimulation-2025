@@ -1,14 +1,25 @@
-﻿using AutoDrivingCarSimulation.Solution.Constants;
+﻿using AutoDrivingCarSimulation.Business.Constants;
 
-namespace AutoDrivingCarSimulation.Solution.App;
+namespace AutoDrivingCarSimulation.Business.Core;
 
 public class Car
 {
+    public string Id { get; }
     private int x;
     private int y;
     private Orientation orientation;
-    private Field field;
-    
+    private Field _field;
+
+    public Field Field
+    {
+        private get { return _field; }
+        set
+        {
+            if (!value.IsValidPosition(x, y)) throw new Exception("Out of bounds");
+            _field = value;
+        }
+    }
+
     /// <summary>
     /// Initializes a new instance of the <see cref="Car"/> class.
     /// </summary>
@@ -16,14 +27,12 @@ public class Car
     /// <param name="y"></param>
     /// <param name="orientation"></param>
     /// <param name="field"></param>
-    public Car(int x, int y, Orientation orientation, Field field)
+    public Car(int x, int y, Orientation orientation)
     {
-        if (!field.IsValidPosition(x, y)) throw new Exception("Out of bounds");
-        
+        this.Id = Guid.NewGuid().ToString();
         this.x = x;
         this.y = y;
         this.orientation = orientation;
-        this.field = field;
     }
 
     /// <summary>
@@ -50,7 +59,7 @@ public class Car
                 break;
         }
 
-        if (this.field.IsValidPosition(newXPosition, newYPosition))
+        if (this._field.IsValidPosition(newXPosition, newYPosition))
         {
             this.x = newXPosition;
             this.y = newYPosition;

@@ -1,4 +1,4 @@
-﻿namespace AutoDrivingCarSimulation.Solution.Constants;
+﻿namespace AutoDrivingCarSimulation.Business.Constants;
 
 public enum Rotation
 {

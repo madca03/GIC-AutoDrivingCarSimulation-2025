@@ -6,7 +6,7 @@ public class UnitTest1
     public void Test1_Simple_Movement()
     {
         // Act
-        var result = AutoDrivingCarSimulation.Solution.Program.GetOutput("5 5", "1 1 N", "FFRFF");
+        var result = AutoDrivingCarSimulation.SolutionPart1.Program.GetOutput("5 5", "1 1 N", "FFRFF");
         
         // Assert
         Assert.Equal(3, result.xCoordinate);
@@ -18,7 +18,7 @@ public class UnitTest1
     public void Test2_Car_Moves_Outside_Boundary()
     {
         // Act
-        var result = AutoDrivingCarSimulation.Solution.Program.GetOutput("5 5", "2 2 N", "FFFF");
+        var result = AutoDrivingCarSimulation.SolutionPart1.Program.GetOutput("5 5", "2 2 N", "FFFF");
         
         // Assert
         Assert.Equal(2, result.xCoordinate);
@@ -30,7 +30,7 @@ public class UnitTest1
     public void Test3_Car_Tries_To_Move_Outside_Boundary()
     {
         // Act
-        var result = AutoDrivingCarSimulation.Solution.Program.GetOutput("5 5", "0 0 S", "F");
+        var result = AutoDrivingCarSimulation.SolutionPart1.Program.GetOutput("5 5", "0 0 S", "F");
         
         // Assert
         Assert.Equal(0, result.xCoordinate);
@@ -42,7 +42,7 @@ public class UnitTest1
     public void Test4_Moving_East_And_Right_Turns()
     {
         // Act
-        var result = AutoDrivingCarSimulation.Solution.Program.GetOutput("5 5", "1 1 E", "RFRFF");
+        var result = AutoDrivingCarSimulation.SolutionPart1.Program.GetOutput("5 5", "1 1 E", "RFRFF");
         
         // Assert
         Assert.Equal(3, result.xCoordinate);
@@ -55,7 +55,7 @@ public class UnitTest1
     {
         // Act
         var exception = Assert.Throws<Exception>(() =>
-            AutoDrivingCarSimulation.Solution.Program.GetOutput("5 5", "6 6 N", "FFRFF"));
+            AutoDrivingCarSimulation.SolutionPart1.Program.GetOutput("5 5", "6 6 N", "FFRFF"));
 
         Assert.Equal("Out of bounds", exception.Message);
     }
@@ -64,7 +64,7 @@ public class UnitTest1
     public void Test6_Full_Movement()
     {
         // Act
-        var result = AutoDrivingCarSimulation.Solution.Program.GetOutput("10 10", "3 3 E", "FFFFRFFLF");
+        var result = AutoDrivingCarSimulation.SolutionPart1.Program.GetOutput("10 10", "3 3 E", "FFFFRFFLF");
         
         // Assert
         Assert.Equal(4, result.xCoordinate);
@@ -76,7 +76,7 @@ public class UnitTest1
     public void Test7_All_Turns_Only()
     {
         // Act
-        var result = AutoDrivingCarSimulation.Solution.Program.GetOutput("5 5", "1 1 N", "LLLL");
+        var result = AutoDrivingCarSimulation.SolutionPart1.Program.GetOutput("5 5", "1 1 N", "LLLL");
         
         // Assert
         Assert.Equal(1, result.xCoordinate);
@@ -88,7 +88,7 @@ public class UnitTest1
     public void Test8_Turn_Without_Movement()
     {
         // Act
-        var result = AutoDrivingCarSimulation.Solution.Program.GetOutput("5 5", "3 3 N", "LFRLF");
+        var result = AutoDrivingCarSimulation.SolutionPart1.Program.GetOutput("5 5", "3 3 N", "LFRLF");
         
         // Assert
         Assert.Equal(2, result.xCoordinate);
@@ -100,7 +100,7 @@ public class UnitTest1
     public void Test9_Moving_North_Then_South()
     {
         // Act
-        var result = AutoDrivingCarSimulation.Solution.Program.GetOutput("5 5", "3 3 N", "FFRFFRFF");
+        var result = AutoDrivingCarSimulation.SolutionPart1.Program.GetOutput("5 5", "3 3 N", "FFRFFRFF");
         
         // Assert
         Assert.Equal(3, result.xCoordinate);
@@ -112,7 +112,7 @@ public class UnitTest1
     public void Test10_No_Movement_Only_Turns()
     {
         // Act
-        var result = AutoDrivingCarSimulation.Solution.Program.GetOutput("5 5", "2 2 S", "RLRLRL");
+        var result = AutoDrivingCarSimulation.SolutionPart1.Program.GetOutput("5 5", "2 2 S", "RLRLRL");
         
         // Assert
         Assert.Equal(2, result.xCoordinate);
@@ -124,7 +124,7 @@ public class UnitTest1
     public void Test11_Car_Moves_To_Upper_Boundary()
     {
         // Act
-        var result = AutoDrivingCarSimulation.Solution.Program.GetOutput("5 5", "2 4 N", "FFF");
+        var result = AutoDrivingCarSimulation.SolutionPart1.Program.GetOutput("5 5", "2 4 N", "FFF");
         
         // Assert
         Assert.Equal(2, result.xCoordinate);
@@ -136,7 +136,7 @@ public class UnitTest1
     public void Test12_Moving_East_With_Boundary_Check()
     {
         // Act
-        var result = AutoDrivingCarSimulation.Solution.Program.GetOutput("5 5", "4 2 E", "FFF");
+        var result = AutoDrivingCarSimulation.SolutionPart1.Program.GetOutput("5 5", "4 2 E", "FFF");
         
         // Assert
         Assert.Equal(5, result.xCoordinate);
@@ -148,7 +148,7 @@ public class UnitTest1
     public void Test13_Boundary_Hit_On_North_Move()
     {
         // Act
-        var result = AutoDrivingCarSimulation.Solution.Program.GetOutput("5 5", "2 4 N", "F");
+        var result = AutoDrivingCarSimulation.SolutionPart1.Program.GetOutput("5 5", "2 4 N", "F");
         
         // Assert
         Assert.Equal(2, result.xCoordinate);
@@ -160,7 +160,7 @@ public class UnitTest1
     public void Test14_Car_Tries_To_Move_Outside_Right()
     {
         // Act
-        var result = AutoDrivingCarSimulation.Solution.Program.GetOutput("5 5", "4 2 E", "F");
+        var result = AutoDrivingCarSimulation.SolutionPart1.Program.GetOutput("5 5", "4 2 E", "F");
         
         // Assert
         Assert.Equal(5, result.xCoordinate);
@@ -172,7 +172,7 @@ public class UnitTest1
     public void Test19_Left_Boundaries()
     {
         // Act
-        var exception = Assert.Throws<Exception>(() => AutoDrivingCarSimulation.Solution.Program.GetOutput("5 5", "0 3 W", "F"));
+        var exception = Assert.Throws<Exception>(() => AutoDrivingCarSimulation.SolutionPart1.Program.GetOutput("5 5", "0 3 W", "F"));
         
         Assert.Equal("Out of bounds", exception.Message);
     }
@@ -186,7 +186,7 @@ public class UnitTest1
     public void ShouldReturnCorrectCoordinates(string line1, string line2, string line3, int xFinalCoordinate, int yFinalCoordinate, char finalDirection)
     {
         // Act
-        var result = AutoDrivingCarSimulation.Solution.Program.GetOutput(line1, line2, line3);
+        var result = AutoDrivingCarSimulation.SolutionPart1.Program.GetOutput(line1, line2, line3);
         
         // Assert
         Assert.Equal(xFinalCoordinate, result.xCoordinate);

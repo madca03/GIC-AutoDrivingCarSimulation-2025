@@ -1,4 +1,4 @@
-﻿namespace AutoDrivingCarSimulation.Solution.App;
+﻿namespace AutoDrivingCarSimulation.Business.Core;
 
 public class Field
 {

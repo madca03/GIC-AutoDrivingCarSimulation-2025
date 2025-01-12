@@ -21,7 +21,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AutoDrivingCarSimulation.Solution\AutoDrivingCarSimulation.Solution.csproj" />
+    <ProjectReference Include="..\AutoDrivingCarSimulation.SolutionPart1\AutoDrivingCarSimulation.SolutionPart1.csproj" />
+    <ProjectReference Include="..\AutoDrivingCarSimulation.SolutionPart2\AutoDrivingCarSimulation.SolutionPart2.csproj" />
   </ItemGroup>
 
 </Project>

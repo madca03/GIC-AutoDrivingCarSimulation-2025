@@ -1,7 +1,7 @@
-﻿using AutoDrivingCarSimulation.Solution.App;
-using AutoDrivingCarSimulation.Solution.Constants;
+﻿using AutoDrivingCarSimulation.Business.Constants;
+using AutoDrivingCarSimulation.Business.Core;
 
-namespace AutoDrivingCarSimulation.Solution.Util;
+namespace AutoDrivingCarSimulation.Business.Util;
 
 public static class InputParserUtil
 {
@@ -31,10 +31,9 @@ public static class InputParserUtil
     /// Parses the input line containing the car's initial position.
     /// </summary>
     /// <param name="carLine">Input string containing the car's initial position.</param>
-    /// <param name="field">Field object created from the first input line.</param>
     /// <returns>Returns Car object.</returns>
     /// <exception cref="Exception"></exception>
-    public static Car ParseCarLine(string carLine, Field field)
+    public static Car ParseCarLine(string carLine)
     {
         string[] tokens = carLine.Split(" ");
         if (tokens.Length != 3) throw new Exception($"Invalid input for the car's initial position: {carLine}");
@@ -70,7 +69,7 @@ public static class InputParserUtil
                 throw new Exception($"Invalid value for the car's orientation. Must be one of the following: N E W S - {carLine}");
         }
 
-        return new Car(xCoordinate, yCoordinate, orientation, field);
+        return new Car(xCoordinate, yCoordinate, orientation);
     }
 
     /// <summary>
@@ -78,26 +77,26 @@ public static class InputParserUtil
     /// </summary>
     /// <param name="line">Input line.</param>
     /// <returns>List of car movement instructions.</returns>
-    public static List<InstructionType> ParseInstructionLine(string line)
+    public static CarInstructions ParseInstructionLine(string line)
     {
-        List<InstructionType> result = new List<InstructionType>();
+        List<InstructionType> instructions = new List<InstructionType>();
 
         foreach (char c in line)
         {
             switch (c)
             {
                 case 'F':
-                    result.Add(InstructionType.FORWARD);
+                    instructions.Add(InstructionType.FORWARD);
                     break;
                 case 'R':
-                    result.Add(InstructionType.TURN_RIGHT);
+                    instructions.Add(InstructionType.TURN_RIGHT);
                     break;
                 case 'L':
-                    result.Add(InstructionType.TURN_LEFT);
+                    instructions.Add(InstructionType.TURN_LEFT);
                     break;
             } 
         }
         
-        return result;
+        return new CarInstructions(instructions);
     }
 }
