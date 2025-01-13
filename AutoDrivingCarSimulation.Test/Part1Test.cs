@@ -3,55 +3,7 @@ namespace AutoDrivingCarSimulation.Test;
 public class Part1Test
 {
     [Fact]
-    public void Test1_Simple_Movement()
-    {
-        // Act
-        var result = AutoDrivingCarSimulation.SolutionPart1.Program.GetOutput("5 5", "1 1 N", "FFRFF");
-        
-        // Assert
-        Assert.Equal(3, result.xCoordinate);
-        Assert.Equal(3, result.yCoordinate);
-        Assert.Equal('E', result.direction);
-    }
-    
-    [Fact]
-    public void Test2_Car_Moves_Outside_Boundary()
-    {
-        // Act
-        var result = AutoDrivingCarSimulation.SolutionPart1.Program.GetOutput("5 5", "2 2 N", "FFFF");
-        
-        // Assert
-        Assert.Equal(2, result.xCoordinate);
-        Assert.Equal(4, result.yCoordinate);
-        Assert.Equal('N', result.direction);
-    }
-    
-    [Fact]
-    public void Test3_Car_Tries_To_Move_Outside_Boundary()
-    {
-        // Act
-        var result = AutoDrivingCarSimulation.SolutionPart1.Program.GetOutput("5 5", "0 0 S", "F");
-        
-        // Assert
-        Assert.Equal(0, result.xCoordinate);
-        Assert.Equal(0, result.yCoordinate);
-        Assert.Equal('S', result.direction);
-    }
-    
-    [Fact]
-    public void Test4_Moving_East_And_Right_Turns()
-    {
-        // Act
-        var result = AutoDrivingCarSimulation.SolutionPart1.Program.GetOutput("5 5", "1 1 E", "RFRFF");
-        
-        // Assert
-        Assert.Equal(3, result.xCoordinate);
-        Assert.Equal(2, result.yCoordinate);
-        Assert.Equal('S', result.direction);
-    }
-    
-    [Fact]
-    public void Test5_Car_Starts_Outside_Boundary()
+    public void Car_Starts_Outside_Boundary()
     {
         // Act
         var exception = Assert.Throws<Exception>(() =>
@@ -60,113 +12,19 @@ public class Part1Test
         Assert.Equal("Out of bounds", exception.Message);
     }
     
-    [Fact]
-    public void Test6_Full_Movement()
-    {
-        // Act
-        var result = AutoDrivingCarSimulation.SolutionPart1.Program.GetOutput("10 10", "3 3 E", "FFFFRFFLF");
-        
-        // Assert
-        Assert.Equal(4, result.xCoordinate);
-        Assert.Equal(7, result.yCoordinate);
-        Assert.Equal('N', result.direction);
-    }
-    
-    [Fact]
-    public void Test7_All_Turns_Only()
-    {
-        // Act
-        var result = AutoDrivingCarSimulation.SolutionPart1.Program.GetOutput("5 5", "1 1 N", "LLLL");
-        
-        // Assert
-        Assert.Equal(1, result.xCoordinate);
-        Assert.Equal(1, result.yCoordinate);
-        Assert.Equal('S', result.direction);
-    }
-    
-    [Fact]
-    public void Test8_Turn_Without_Movement()
-    {
-        // Act
-        var result = AutoDrivingCarSimulation.SolutionPart1.Program.GetOutput("5 5", "3 3 N", "LFRLF");
-        
-        // Assert
-        Assert.Equal(2, result.xCoordinate);
-        Assert.Equal(4, result.yCoordinate);
-        Assert.Equal('W', result.direction);
-    }
-    
-    [Fact]
-    public void Test9_Moving_North_Then_South()
-    {
-        // Act
-        var result = AutoDrivingCarSimulation.SolutionPart1.Program.GetOutput("5 5", "3 3 N", "FFRFFRFF");
-        
-        // Assert
-        Assert.Equal(3, result.xCoordinate);
-        Assert.Equal(2, result.yCoordinate);
-        Assert.Equal('W', result.direction);
-    }
-    
-    [Fact]
-    public void Test10_No_Movement_Only_Turns()
-    {
-        // Act
-        var result = AutoDrivingCarSimulation.SolutionPart1.Program.GetOutput("5 5", "2 2 S", "RLRLRL");
-        
-        // Assert
-        Assert.Equal(2, result.xCoordinate);
-        Assert.Equal(2, result.yCoordinate);
-        Assert.Equal('N', result.direction);
-    }
-    
-    [Fact]
-    public void Test11_Car_Moves_To_Upper_Boundary()
-    {
-        // Act
-        var result = AutoDrivingCarSimulation.SolutionPart1.Program.GetOutput("5 5", "2 4 N", "FFF");
-        
-        // Assert
-        Assert.Equal(2, result.xCoordinate);
-        Assert.Equal(5, result.yCoordinate);
-        Assert.Equal('N', result.direction);
-    }
-    
-    [Fact]
-    public void Test12_Moving_East_With_Boundary_Check()
-    {
-        // Act
-        var result = AutoDrivingCarSimulation.SolutionPart1.Program.GetOutput("5 5", "4 2 E", "FFF");
-        
-        // Assert
-        Assert.Equal(5, result.xCoordinate);
-        Assert.Equal(2, result.yCoordinate);
-        Assert.Equal('E', result.direction);
-    }
-    
-    [Fact]
-    public void Test13_Boundary_Hit_On_North_Move()
-    {
-        // Act
-        var result = AutoDrivingCarSimulation.SolutionPart1.Program.GetOutput("5 5", "2 4 N", "F");
-        
-        // Assert
-        Assert.Equal(2, result.xCoordinate);
-        Assert.Equal(5, result.yCoordinate);
-        Assert.Equal('N', result.direction);
-    }
-    
-    [Fact]
-    public void Test19_Left_Boundaries()
-    {
-        // Act
-        var exception = Assert.Throws<Exception>(() => AutoDrivingCarSimulation.SolutionPart1.Program.GetOutput("5 5", "0 3 W", "F"));
-        
-        Assert.Equal("Out of bounds", exception.Message);
-    }
-    
     [Theory]
-    [InlineData("5 5", "4 2 E", "F", 5, 2, "E")] // Car tries to move outside right
+    [InlineData("5 5", "0 3 W", "F", 0, 3, "W")] // Left Boundaries
+    [InlineData("5 5", "1 1 N", "FFRFF", 3, 3, "E")] // Simple movement
+    [InlineData("5 5", "2 2 N", "FFFF", 2, 4, "N")] // Car moves outside boundary
+    [InlineData("5 5", "0 0 S", "F", 0, 0, "S")] // Car tries to move outside boundary
+    [InlineData("5 5", "1 1 E", "RFRFF", 0, 0, "W")] // Moving east and right turns
+    [InlineData("10 10", "3 3 E", "FFFFRFFLF", 8, 1, "E")] // Full movement
+    [InlineData("5 5", "1 1 N", "LLLL", 1, 1, "N")] // All Turns Only
+    [InlineData("5 5", "3 3 N", "LFRLF", 1, 3, "W")] // Turn without movement
+    [InlineData("5 5", "3 3 N", "FFRFFRFF", 4, 2, "S")] // Moving north then south
+    [InlineData("5 5", "2 2 S", "RLRLRL", 2, 2, "S")] // No Movement Only Turns
+    [InlineData("5 5", "2 4 N", "FFF", 2, 4, "N")] // Car Moves to Upper Boundary
+    [InlineData("5 5", "4 2 E", "FFF", 4, 2, "E")] // Car tries to move outside right
     [InlineData("10 10", "1 2 N", "FFRFFFRRLF", 4, 3, "S")]
     [InlineData("5 5", "1 1 E", "", 1, 1, "E")] // No Command (Car Stays In Place)
     [InlineData("10 10", "1 1 N", "FFRFFFRRLFF", 4, 1, "S")] // Full Exploration (Overstepping Boundary)
