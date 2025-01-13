@@ -1,6 +1,6 @@
 namespace AutoDrivingCarSimulation.Test;
 
-public class UnitTest1
+public class Part1Test
 {
     [Fact]
     public void Test1_Simple_Movement()
@@ -157,18 +157,6 @@ public class UnitTest1
     }
     
     [Fact]
-    public void Test14_Car_Tries_To_Move_Outside_Right()
-    {
-        // Act
-        var result = AutoDrivingCarSimulation.SolutionPart1.Program.GetOutput("5 5", "4 2 E", "F");
-        
-        // Assert
-        Assert.Equal(5, result.xCoordinate);
-        Assert.Equal(2, result.yCoordinate);
-        Assert.Equal('E', result.direction);
-    }
-    
-    [Fact]
     public void Test19_Left_Boundaries()
     {
         // Act
@@ -178,19 +166,26 @@ public class UnitTest1
     }
     
     [Theory]
-    [InlineData("5 5", "1 1 E", "", 1, 1, 'E')] // No Command (Car Stays In Place)
-    [InlineData("10 10", "1 1 N", "FFRFFFRRLFF", 4, 1, 'S')] // Full Exploration (Overstepping Boundary)
-    [InlineData("5 5", "4 3 E", "F", 4, 3, 'E')]
-    [InlineData("5 5", "4 4 N", "FFRFFRFF", 4, 2, 'S')] // Multiple boundary hit scenario
-    [InlineData("5 5", "4 0 S", "FFRLFF", 4, 0, 'S')] // Starting on boundary and turning
-    public void ShouldReturnCorrectCoordinates(string line1, string line2, string line3, int xFinalCoordinate, int yFinalCoordinate, char finalDirection)
+    [InlineData("5 5", "4 2 E", "F", 5, 2, "E")] // Car tries to move outside right
+    [InlineData("10 10", "1 2 N", "FFRFFFRRLF", 4, 3, "S")]
+    [InlineData("5 5", "1 1 E", "", 1, 1, "E")] // No Command (Car Stays In Place)
+    [InlineData("10 10", "1 1 N", "FFRFFFRRLFF", 4, 1, "S")] // Full Exploration (Overstepping Boundary)
+    [InlineData("5 5", "4 3 E", "F", 4, 3, "E")]
+    [InlineData("5 5", "4 4 N", "FFRFFRFF", 4, 2, "S")] // Multiple boundary hit scenario
+    [InlineData("5 5", "4 0 S", "FFRLFF", 4, 0, "S")] // Starting on boundary and turning
+    public void ShouldReturnCorrectCoordinates(string line1, string line2, string line3, int xFinalCoordinate, int yFinalCoordinate, string finalDirection)
     {
         // Act
-        var result = AutoDrivingCarSimulation.SolutionPart1.Program.GetOutput(line1, line2, line3);
+        var result = AutoDrivingCarSimulation.SolutionPart1.Program.StartSimulation(line1, line2, line3);
+        
+        string[] tokens = result.Split(" ");
+        int xCoordinate = int.Parse(tokens[0]);
+        int yCoordinate = int.Parse(tokens[1]);
+        string direction = tokens[2];
         
         // Assert
-        Assert.Equal(xFinalCoordinate, result.xCoordinate);
-        Assert.Equal(yFinalCoordinate, result.yCoordinate);
-        Assert.Equal(finalDirection, result.direction);
+        Assert.Equal(xFinalCoordinate, xCoordinate);
+        Assert.Equal(yFinalCoordinate, yCoordinate);
+        Assert.Equal(finalDirection, direction);
     }
 }

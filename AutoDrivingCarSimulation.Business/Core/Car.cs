@@ -1,13 +1,15 @@
 ﻿using AutoDrivingCarSimulation.Business.Constants;
+using AutoDrivingCarSimulation.Business.Extensions;
 
 namespace AutoDrivingCarSimulation.Business.Core;
 
 public class Car
 {
-    public string Id { get; }
-    private int x;
-    private int y;
-    private Orientation orientation;
+    public string Id { get; } // Cars can have same names so create a unique Id per car.
+    public string Name { get; private set; }
+    public int X { get; private set; }
+    public int Y { get; private set; }
+    public Orientation Orientation { get; private set; }
     private Field _field;
 
     public Field Field
@@ -15,11 +17,28 @@ public class Car
         private get { return _field; }
         set
         {
-            if (!value.IsValidPosition(x, y)) throw new Exception("Out of bounds");
+            if (!value.IsValidPosition(this.X, this.Y)) throw new Exception("Out of bounds");
             _field = value;
         }
     }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Car"/> class.
+    /// </summary>
+    /// <param name="name"></param>
+    /// <param name="x"></param>
+    /// <param name="y"></param>
+    /// <param name="orientation"></param>
+    /// <param name="field"></param>
+    public Car(string name, int x, int y, Orientation orientation)
+    {
+        this.Id = Guid.NewGuid().ToString();
+        this.Name = name;
+        this.X = x;
+        this.Y = y;
+        this.Orientation = orientation;
+    }
+    
     /// <summary>
     /// Initializes a new instance of the <see cref="Car"/> class.
     /// </summary>
@@ -30,9 +49,9 @@ public class Car
     public Car(int x, int y, Orientation orientation)
     {
         this.Id = Guid.NewGuid().ToString();
-        this.x = x;
-        this.y = y;
-        this.orientation = orientation;
+        this.X = x;
+        this.Y = y;
+        this.Orientation = orientation;
     }
 
     /// <summary>
@@ -40,29 +59,13 @@ public class Car
     /// </summary>
     public void MoveForward()
     {
-        int newXPosition = this.x;
-        int newYPosition = this.y;
-
-        switch (this.orientation)
-        {
-            case Orientation.NORTH:
-                newYPosition += 1;
-                break;
-            case Orientation.EAST:
-                newXPosition += 1;
-                break;
-            case Orientation.SOUTH:
-                newYPosition -= 1;
-                break;
-            case Orientation.WEST:
-                newXPosition -= 1;
-                break;
-        }
+        int newXPosition = this.X + this.Orientation.DeltaX();
+        int newYPosition = this.Y + this.Orientation.DeltaY();
 
         if (this._field.IsValidPosition(newXPosition, newYPosition))
         {
-            this.x = newXPosition;
-            this.y = newYPosition;
+            this.X = newXPosition;
+            this.Y = newYPosition;
         }
     }
     
@@ -71,7 +74,7 @@ public class Car
     /// </summary>
     public void TurnLeft()
     {
-        Rotate(Rotation.COUNTERCLOCKWISE);
+        this.Orientation = this.Orientation.TurnLeft();
     }
 
     /// <summary>
@@ -79,7 +82,7 @@ public class Car
     /// </summary>
     public void TurnRight()
     {
-        Rotate(Rotation.CLOCKWISE);
+        this.Orientation = this.Orientation.TurnRight();
     }
 
     /// <summary>
@@ -88,33 +91,28 @@ public class Car
     /// <returns></returns>
     public string PrintCurrentPosition()
     {
-        return $"{this.x} {this.y} {(char)this.orientation}";
+        return $"{this.X} {this.Y} {(char)this.Orientation}";
+    }
+    
+    /// <summary>
+    /// This is used for key comparison in Dictionary
+    /// </summary>
+    /// <param name="obj"></param>
+    /// <returns></returns>
+    public override bool Equals(object? obj)
+    {
+        if (this == obj) return true;
+        if (!(obj is Car)) return false;
+        Car other = (Car)obj;
+        return this.Id == other.Id;
     }
 
     /// <summary>
-    /// Changes the car's orientation either clockwise or counterclockwise.
+    /// This is used for using this object as key in a Dictionary
     /// </summary>
-    /// <param name="rotation">Rotation type which can be either clockwise or counterclockwise.</param>
-    private void Rotate(Rotation rotation)
+    /// <returns></returns>
+    public override int GetHashCode()
     {
-        switch (this.orientation)
-        {
-            case Orientation.NORTH:
-                if (rotation == Rotation.CLOCKWISE) this.orientation = Orientation.EAST;
-                else if (rotation == Rotation.COUNTERCLOCKWISE) this.orientation = Orientation.WEST;
-                break;
-            case Orientation.EAST:
-                if (rotation == Rotation.CLOCKWISE) this.orientation = Orientation.SOUTH;
-                else if (rotation == Rotation.COUNTERCLOCKWISE) this.orientation = Orientation.NORTH;
-                break;
-            case Orientation.SOUTH:
-                if (rotation == Rotation.CLOCKWISE) this.orientation = Orientation.WEST;
-                else if (rotation == Rotation.COUNTERCLOCKWISE) this.orientation = Orientation.EAST;
-                break;
-            case Orientation.WEST:
-                if (rotation == Rotation.CLOCKWISE) this.orientation = Orientation.NORTH;
-                else if (rotation == Rotation.COUNTERCLOCKWISE) this.orientation = Orientation.SOUTH;
-                break;
-        }
+        return this.Id.GetHashCode();
     }
 }

@@ -33,7 +33,7 @@ public static class InputParserUtil
     /// <param name="carLine">Input string containing the car's initial position.</param>
     /// <returns>Returns Car object.</returns>
     /// <exception cref="Exception"></exception>
-    public static Car ParseCarLine(string carLine)
+    public static Car ParseCarLine(string carLine, string carName = null)
     {
         string[] tokens = carLine.Split(" ");
         if (tokens.Length != 3) throw new Exception($"Invalid input for the car's initial position: {carLine}");
@@ -69,7 +69,9 @@ public static class InputParserUtil
                 throw new Exception($"Invalid value for the car's orientation. Must be one of the following: N E W S - {carLine}");
         }
 
-        return new Car(xCoordinate, yCoordinate, orientation);
+        return string.IsNullOrEmpty(carName)
+            ? new Car(xCoordinate, yCoordinate, orientation)
+            : new Car(carName, xCoordinate, yCoordinate, orientation);
     }
 
     /// <summary>
@@ -77,7 +79,7 @@ public static class InputParserUtil
     /// </summary>
     /// <param name="line">Input line.</param>
     /// <returns>List of car movement instructions.</returns>
-    public static CarInstructions ParseInstructionLine(string line)
+    public static CarInstructions ParseInstructionLine(string line, string carId)
     {
         List<InstructionType> instructions = new List<InstructionType>();
 
@@ -97,6 +99,6 @@ public static class InputParserUtil
             } 
         }
         
-        return new CarInstructions(instructions);
+        return new CarInstructions(instructions, carId);
     }
 }
