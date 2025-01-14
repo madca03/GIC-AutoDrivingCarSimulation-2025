@@ -1,6 +1,6 @@
-﻿namespace AutoDrivingCarSimulation.SolutionPart2;
+namespace AutoDrivingCarSimulation.Business.Model;
 
-public class CarInput
+public class CarInputModel
 {
     public string NameLine { get; set; }
     public string CoordinateLine { get; set; }

@@ -1,9 +1,10 @@
 ﻿using AutoDrivingCarSimulation.Business.Core;
+using AutoDrivingCarSimulation.Business.Model;
 using AutoDrivingCarSimulation.Business.Util;
 
 namespace AutoDrivingCarSimulation.SolutionPart2;
 
-class Program
+public class Program
 {
     static void Main(string[] args)
     {
@@ -28,10 +29,21 @@ class Program
         StartSimulation(fieldLine, carInputs);
         */
         
-        StartSimulation(parser.FieldDimensionLine, parser.CarInputs);
+        var simulationResult = StartSimulation(parser.FieldDimensionLine, parser.CarInputs);
+        
+        if (simulationResult.HasCollision)
+        {
+            Console.WriteLine(simulationResult.CollidedCars);
+            Console.WriteLine(simulationResult.CollisionPosition);
+            Console.WriteLine(simulationResult.Step);
+        }
+        else
+        {
+            Console.WriteLine("no collision");
+        }
     }
-
-    public static void StartSimulation(string fieldLine, List<CarInput> carInputs)
+    
+    public static SimulationResult StartSimulation(string fieldLine, List<CarInputModel> carInputs)
     {
         Field field = InputParserUtil.ParseFieldLine(fieldLine);
         List<Car> cars = new List<Car>();
@@ -46,6 +58,7 @@ class Program
         }
 
         Simulator simulator = new Simulator(field, cars, carInstructions);
-        simulator.RunSimulation();
+        var simulationResult = simulator.RunSimulation();
+        return simulationResult;
     }
 }

@@ -23,10 +23,11 @@ public class Simulator
         this.carInstructionMap = carInstructions.ToDictionary(x => x.CarId);
     }
 
-    public void RunSimulation()
+    public SimulationResult RunSimulation()
     {
         int step = 1;
-
+        var res = new SimulationResult();
+        
         while (AnyCarHasInstructions())
         {
             // Get the new car positions
@@ -69,10 +70,11 @@ public class Simulator
             {
                 List<Car> collidedCars = FindCarsAtPosition(nextPositions, collisionPosition);
 
-                Console.WriteLine(FormatCarNames(collidedCars));
-                Console.WriteLine($"{collisionPosition.X} {collisionPosition.Y}");
-                Console.WriteLine(step);
-                return;
+                res.CollidedCars = FormatCarNames(collidedCars);
+                res.CollisionPosition = $"{collisionPosition.X} {collisionPosition.Y}";
+                res.Step = step;
+                res.HasCollision = true;
+                return res;
             }
             
             // No collision found. Finalize each car's move.
@@ -101,7 +103,7 @@ public class Simulator
             step++;
         }
 
-        Console.WriteLine("no collision");
+        return res;
     }
     
     public string FormatCarNames(List<Car> cars)
