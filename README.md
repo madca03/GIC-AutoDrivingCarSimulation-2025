@@ -17,6 +17,8 @@
 
 ![UML Design](./images/UML-diagram.png)
 
+Both solutions for parts 1 and 2 share the same set of classes (Field, Car, and CarInstructions). The Field class stores the boundary dimensions of the field, the Car class holds the car’s current position and defines its basic movement methods, and the CarInstructions class manages a queue of instructions for one car.
+
 ### Part 1 Solution
 
 #### 1. How to run and test the program?
