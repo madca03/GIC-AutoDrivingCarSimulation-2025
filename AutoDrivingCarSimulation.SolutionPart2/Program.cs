@@ -13,14 +13,14 @@ public class Program
 
         /*
         string fieldLine = "10 10";
-        List<CarInput> carInputs = new List<CarInput>();
-        carInputs.Add(new CarInput
+        List<CarInputModel> carInputs = new List<CarInputModel>();
+        carInputs.Add(new CarInputModel
         {
             NameLine = "A",
             CoordinateLine = "1 2 N",
             InstructionLine = "FFRFFFFRRL"
         });
-        carInputs.Add(new CarInput
+        carInputs.Add(new CarInputModel
         {
             NameLine = "B",
             CoordinateLine = "7 8 W",
