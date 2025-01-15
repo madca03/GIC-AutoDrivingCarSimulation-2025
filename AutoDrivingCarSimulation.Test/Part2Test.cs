@@ -51,6 +51,23 @@ public static class SimulationData
             "",
             -1
         };
+        
+        yield return new object[]
+        {
+            "5 5",
+            new List<CarInputModel>
+            {
+                new CarInputModel
+                {
+                    NameLine = "A",
+                    CoordinateLine = "0 3 W",
+                    InstructionLine = "F"
+                }
+            },
+            "",
+            "",
+            -1
+        };
     }
     
     public static IEnumerable<object[]> GetSimulationDataWithCollision()
